@@ -4,13 +4,13 @@ use serde::{de::DeserializeOwned, Deserialize};
 use crate::encryption;
 
 pub struct ReqClient {
-    secret_id: String,
-    secret_key: String,
-    host: String,
-    service: String,
-    region: String,
-    version: String,
-    client: Client,
+    pub secret_id: String,
+    pub secret_key: String,
+    pub host: String,
+    pub service: String,
+    pub region: String,
+    pub version: String,
+    pub client: Client,
 }
 
 /// 通用基础响应
@@ -31,6 +31,26 @@ impl ReqClient {
             service,
             region: "".to_string(),
             version: "2021-03-23".to_string(),
+        };
+    }
+
+    pub fn new_with(
+        secret_id: String,
+        secret_key: String,
+        host: String,
+        service: String,
+        region: String,
+        version: String,
+    ) -> Self {
+        let client = reqwest::Client::new();
+        return Self {
+            secret_id,
+            secret_key,
+            client,
+            host,
+            service,
+            region,
+            version,
         };
     }
 
